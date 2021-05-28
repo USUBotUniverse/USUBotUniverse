@@ -35,7 +35,7 @@ Aktuell stehen zwei Konnektoren zur Verfügung.
 
 ## Der "Default" - Connector
 
-Der Default Connector ist der der Standard-Connector des KBot. Sowohl KBot Widget alsauch KFirst verwenden diesen zur Kommunikation. Er sollte auch immer dann verwendet werden, wenn eine Drittanwendung mit KBot kommunizieren möchte. Sollten bestimmte Dinge nicht mit ihm abgebildet werden, so sollten ein neuer Connector-Typ entwickelt werden. Der Default-Connector kommunziert mittels http(s). Anfragen werden immer als HTTP-Post Commands gesendet.
+Der Default Connector ist der der Standard-Connector des KBot. Sowohl KBot Widget als auch KFirst verwenden diesen zur Kommunikation. Er sollte auch immer dann verwendet werden, wenn eine Drittanwendung mit KBot kommunizieren möchte. Sollten bestimmte Dinge nicht mit ihm abgebildet werden, so sollten ein neuer Connector-Typ entwickelt werden. Der Default-Connector kommunziert mittels http(s). Anfragen werden immer als HTTP-Post Commands gesendet.
 
 ### Die Basis JSON-Struktur
 
