@@ -316,7 +316,7 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
 
 | Attribute          | Bedeutung                                                    | Typ     | Optional |
 | ------------------ | ------------------------------------------------------------ | ------- | -------- |
-| multiSelectAllowed | Abhängig vom Eingabetyp, gibt dieser wert an, ob eine Mehrfachauswahl möglich ist. Wird im Zusammenhang mit 'select'-Engaben verwendet. | Boolean | ja       |
+| multiSelectAllowed | Abhängig vom Eingabetyp, gibt dieser Wert an, ob eine Mehrfachauswahl möglich ist. Wird im Zusammenhang mit 'select'-Eingaben verwendet. | Boolean | ja       |
 | inputType          | Gibt die Art der Eingabemöglichkeit durch den Anwender an.   | String  | nein     |
 | allowAutoComplete  | Gibt an, ob an der Oberfläche die AutoComplete -Funktion aktiviert werden soll. Hierbei handelt es sich um ein KBot-Feature. | Boolean | ja       |
 | inputOptions       | Wird ebenfalls im Zusammenhang mit 'select'-Eingaben verwendet. Hier werden die einzelnen möglichen Optionen gelistet. | Array   | ja       |
