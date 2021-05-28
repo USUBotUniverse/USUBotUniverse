@@ -1,6 +1,6 @@
 ![USUBotUniverse wallpaper](https://user-images.githubusercontent.com/84908019/119977642-fcbc0400-bfb8-11eb-8554-06d8bf814bb0.png)
 
-The USU-Bot-Universe represents bot-communication-protocoll which provides a universal communication format for any chatbots.
+The USU-Bot-Universe represents a bot-communication-protocoll which provides a universal communication format for any chatbots.
 The concept divides chatbots into two roles, expert and master bots.
 The expert bots are chatbots that have been registered in the universe and can provide information on specific topics.
 The other class, the master bot, is the entry-level chatbot that first communicates with the user and assigns a matching expert bot.
