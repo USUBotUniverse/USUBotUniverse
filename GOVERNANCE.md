@@ -6,10 +6,10 @@ The USUBotUniverse has a community-driven development process where most decisio
 
 Current core team members are:
 
-| Name               | Organization            | github                  |
-|:-------------------|:-------------|:------------------
+| Name               | Organization                    | github                  |
+|:-------------------|:--------------------------------|:------------------
 | Admin Account      | USU                             | [Admin Account](https://github.com/USU-Bot-Universe) |
-| Michael SChlegel   | USU                             | - |
+| Michael Schlegel   | USU                             | - |
 | Harald Huber       | USU                             | - |
 | Robin Hoffmann     | USU                             | [robUSU](https://github.com/robUSU) |
 
