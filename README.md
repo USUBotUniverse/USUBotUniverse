@@ -1,4 +1,4 @@
-![USUBotUniverse wallpaper](https://user-images.githubusercontent.com/84908019/119977642-fcbc0400-bfb8-11eb-8554-06d8bf814bb0.png)
+![turbulent-wires](https://user-images.githubusercontent.com/84908019/124443002-95466080-dd7d-11eb-8d2f-c080a6374d87.jpg)
 
 What is the USUBotUniverse?
 --------------------------
