@@ -8,4 +8,4 @@ The expert bots are chatbots that have been registered in the universe and can p
 The other class, the master bot, is the entry-level chatbot that first communicates with the user and assigns a matching expert bot.
 The master bot acts as a kind of moderator, whereas the expert bot is responsible for actually answering the question.
 In the course of the project, interfaces for many different chatbots based on different technologies will be developed in order to create a way to connect them to the USUBotUniverse.
-The vision of the USU-Bot-Universe is to combine chatbots and also to create entire chatbot networks.
+The vision of the USUBotUniverse is to combine chatbots and create entire chatbot networks.
