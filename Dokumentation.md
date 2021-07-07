@@ -4,7 +4,7 @@
 
 ## Anbindung
 
-Zur Anbindung von verschiedenenen Front-end's stehen im KBot sogenannte "Connector's" zur Verfügung. Über diese können verschiedenen Kommunikationsprotokolle zur Anbindung verschiedenener Anwendung generiert werden. Jeder Konnektor wird über einen speziellen Rest-Service mittels eindeutiger URL angesprochen. Die URL ist jeweils in der KBot-Konfiguration des jeweiligen Connector's zu finden.
+Zur Anbindung von verschiedenenen Front-end's stehen im USUBotUniverse sogenannte "Connector's" zur Verfügung. Über diese können verschiedenen Kommunikationsprotokolle zur Anbindung verschiedenener Anwendung generiert werden. Jeder Konnektor wird über einen speziellen Rest-Service mittels eindeutiger URL angesprochen. Die URL ist jeweils in der Bot-Konfiguration des jeweiligen Connector's zu finden.
 
 Typischerweise ist solch eine URL wie folgt aufgebaut:
 
@@ -16,7 +16,7 @@ http(s)://<server>[:<port>]/kbot-api/interact/<kbot-id>/<con-type>:<con-name>
 | ---------- | ------------------------------------------- |
 | *server*   | IP oder Domain des Servers                  |
 | *port*     | Port des Servers                            |
-| *kbot-id*  | eindeutige ID des KBot's                    |
+| *kbot-id*  | eindeutige ID des Bot's                    |
 | *con-type* | Typ des Connector's                         |
 | *con-name* | Name/eindeutiger Bezeichner des Connector's |
 
@@ -35,11 +35,11 @@ Aktuell stehen zwei Konnektoren zur Verfügung.
 
 ## Der "Default" - Connector
 
-Der Default Connector ist der der Standard-Connector des KBot. Sowohl KBot Widget als auch KFirst verwenden diesen zur Kommunikation. Er sollte auch immer dann verwendet werden, wenn eine Drittanwendung mit KBot kommunizieren möchte. Sollten bestimmte Dinge nicht mit ihm abgebildet werden, so sollten ein neuer Connector-Typ entwickelt werden. Der Default-Connector kommunziert mittels http(s). Anfragen werden immer als HTTP-Post Commands gesendet.
+Der Default Connector ist der der Standard-Connector mit dem auch eigene Bot der USU (KBot) verbunden wird. Sowohl KBot Widget als auch KFirst verwenden diesen zur Kommunikation. Er sollte auch immer dann verwendet werden, wenn eine Drittanwendung mit einem Bot kommunizieren möchte. Sollten bestimmte Dinge nicht mit ihm abgebildet werden, so sollten ein neuer Connector-Typ entwickelt werden. Der Default-Connector kommunziert mittels http(s). Anfragen werden immer als HTTP-Post Commands gesendet.
 
 ### Die Basis JSON-Struktur
 
-KBot verwendet zum Austausch von Daten eine JSON-Datenstruktur. Es gibt eine Basisstruktur für Anfragen "Requests" und eine Basisstruktur für Antworten "Responses". 
+Das Kommunikationsprotokoll des USUBotUniverse verwendet zum Austausch von Daten eine JSON-Datenstruktur. Es gibt eine Basisstruktur für Anfragen "Requests" und eine Basisstruktur für Antworten "Responses". 
 
 #### Request
 
@@ -48,7 +48,7 @@ Das Anfrage-Objekt eines Requests, besteht aus zwei wesentlichen Elementen.
 1. "session" - Element
 2. "request" - Element
 
-Das "session" Element beinhaltet wesentliche Parameter zur eigentlichen Session-Verwaltung einer KBot-Kommunikation. Das "request" Element enthält die eigentliche Anfrage an den KBot.
+Das "session" Element beinhaltet wesentliche Parameter zur eigentlichen Session-Verwaltung einer Bot-Kommunikation. Das "request" Element enthält die eigentliche Anfrage an den verbundenen Bot.
 
 ##### Aufbau des "session"-Elementes:
 
@@ -74,9 +74,9 @@ Das "session" Element beinhaltet wesentliche Parameter zur eigentlichen Session-
 | Attribute   | Bedeutung                                                    | Typ     | Optional |
 | ----------- | ------------------------------------------------------------ | ------- | -------- |
 | application | Ein Object, welches Informationen über die aufrufende Application beinhaltet. | Object  | nein     |
-| user        | Ein Object, welches Informationen über den User, welcher eine Anfrage stellt, beinhaltet. Hat bisher noch keine bedeutung und es sollte "Kbot-Default-User" als Wert verwendet werden. | Object  | ja       |
+| user        | Ein Object, welches Informationen über den User, welcher eine Anfrage stellt, beinhaltet. Hat bisher noch keine Bedeutung und es sollte "Kbot-Default-User" als Wert verwendet werden. | Object  | ja       |
 | attributes  | Ein Object, welches eine Key/Value Liste representiert, mit der frei definierbare Werte mit der Anfrage übersendet werden können. | Object  | ja       |
-| sessionId   | Die Id der Kommunikations-Session. Diese sollte bei jedem Request mitgegeben werden. Wird keine "Session-ID" mitgegeben, so wird eine neue Kommunikations-Session erstellt und deren ID wird mit dem Respons geliefert. Eine Aufrufende Anwendung kann auch ein eigene ID hier angeben. Sollte unter dieser ID eine Session existieren, so verwendet der KBot diese Session. Wenn nicht, legt KBat intern eine neue Session an und verwendet die gegebene Session als ID. | String  | nein     |
+| sessionId   | Die Id der Kommunikations-Session. Diese sollte bei jedem Request mitgegeben werden. Wird keine "Session-ID" mitgegeben, so wird eine neue Kommunikations-Session erstellt und deren ID wird mit dem Respons geliefert. Eine Aufrufende Anwendung kann auch ein eigene ID hier angeben. Sollte unter dieser ID eine Session existieren, so verwendet der Bot diese Session. Wenn nicht, wird intern eine neue Session angelegt und die gegebene Session wird als ID verwendet. | String  | nein     |
 | new         | Gibt an, ob eine neue Session unter dieser ID angelegt werden soll. Dies ist dann relevant, falls unter einer angegebenen Session-ID bereits eine Session auf dem Server existiert. Diese Session wird dann verworfen und eine neue Session wird erstellt. | Boolean | ja       |
 
 ###### Das "application" Arttribut
@@ -118,14 +118,14 @@ An diesem Object können beliebige Key/Value Paare definiert werden.
 | Attribut  | Bedeutung                                                    | Typ    | Optional |
 | --------- | ------------------------------------------------------------ | ------ | -------- |
 | type      | Gibt den Typ der Anfrage an. Mögliche Werte sind im Moment 'command' und 'message'. | String | nein     |
-| requestId | Die ID des Requests. Diese wird von der anfragenden Anwendung gesetzt. Sie hat keine Auswirkung auf die Kommunikation ansich. Im Response wird diese ID wieder zurück geliefert. | String | ja       |
+| requestId | Die ID des Requests. Diese wird von der anfragenden Anwendung gesetzt. Sie hat keine Auswirkung auf die Kommunikation an sich. Im Response wird diese ID wieder zurück geliefert. | String | ja       |
 | locale    | Gibt die verwendete (Text) Sprache für die Anfrage an.       | String | nein     |
 | timestamp | Ein Zeitstempel, wann der Request angelegt wurde. Dieser wird von der aufrufenden Anwendung vergeben und derzeit keine weitere Bedeutung. Der Zeitstempel sollte im UTC Zeitformat angegeben werden. | String | ja       |
-| payload   | Hier befinden sich die eigentlichen Kommunikationsdaten. Der Aufbau dieses Objektes hängt vom angegebenen Request-Type an. | Object | nein     |
+| payload   | Hier befinden sich die eigentlichen Kommunikationsdaten. Der Aufbau dieses Objektes hängt vom angegebenen Request-Type ab. | Object | nein     |
 
 ###### 'payload' vom Typ 'command'
 
-Mithilfe des 'payload' vom Typ 'command', wird angegeben, welche 'native' KBot Aktion ausgeführt werden soll. 
+Mithilfe des 'payload' vom Typ 'command', wird angegeben, welche 'native' Bot Aktion ausgeführt werden soll. 
 
 ```json
 "payload":{  
@@ -142,7 +142,7 @@ Mögliche Aktionen:
 | ------------ | ------------------------------------------------------------ | --------- |
 | startSession | Startet eine neue Session. Sollte eine Session über die 'sessionId' angegeben worden sein, so wird diese beendet, falls vorhanden. | keine     |
 | resetSession | Beendet die aktuelle Session und startet sie neu. Die Session selber wird anhand der 'sessionId' im Session-Object definiert. | keine     |
-| endSession   | Beendet die aktuelle Session. Die Session selber wird anhand der 'sessionId' im Session-Object definiert. |           |
+| endSession   | Beendet die aktuelle Session. Die Session selber wird anhand der 'sessionId' im Session-Object definiert. | keine       |
 
 ###### 'payload' vom Typ 'message'
 
@@ -154,7 +154,7 @@ Mögliche Aktionen:
 
 | Attribut | Bedeutung                                                    | Typ    | Optional |
 | -------- | ------------------------------------------------------------ | ------ | -------- |
-| text     | Die eigentliche textuelle Eingabe, die an den KBot gesendet werden soll. | String | ja       |
+| text     | Die eigentliche textuelle Eingabe, die an den Bot gesendet werden soll. | String | ja       |
 
 ##### Beispiel für eine Request-Anfrage:
 
@@ -192,7 +192,7 @@ Das Antwort-Objekt eines Response, besteht aus zwei wesentlichen Elementen.
 1. "sessionAttributes" - Element
 2. "response" - Element
 
-Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentlichen Session-Verwaltung einer KBot-Kommunikation. Das "response"-Element beinhalt alle Informationen zu einer Anfrage.
+Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentlichen Session-Verwaltung einer Bot-Kommunikation. Das "response"-Element beinhalt alle Informationen zu einer Anfrage.
 
 ##### Aufbau des "sessionAttributes"-Elementes:
 
@@ -202,7 +202,7 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
 }
 ```
 
-| Attribute | Bedeutung                                                    | Typ                                                 | Optional |
+| Attribute | Bedeutung                                                    | Typ      | Optional |
 | --------- | ------------------------------------------------------------ | -------- | -------- |
 | sessionId    | Die id der Session, zu der die Anfrage gehört. | String | nein     |
 
@@ -210,9 +210,9 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
 
 | Attribute        | Bedeutung                                                    | Typ                  | Optional |
 | ---------------- | ------------------------------------------------------------ | -------------------- | -------- |
-| shouldEndSession | gibt an, ob die Session auf dem Server beendet wurde. die aufrufende Anwendung sollte ebenfalls ihre Session oder ähnliches beenden. | Boolean              | ja       |
+| shouldEndSession | gibt an, ob die Session auf dem Server beendet wurde. Die aufrufende Anwendung sollte ebenfalls ihre Session oder ähnliches beenden. | Boolean              | ja       |
 | type             | Gibt den Typ der 'response' an. Im Momment existiert nur der Typ "reply". | String               | nein     |
-| payload          | Beinhaltet die Kommunikationsdaten, Antworten auf ein Command oder Anfrage.  Ein payload kann ein einzelnes Object oder ein array von Objects sein. Stand heute wird ein Array mit einem Object geliefert. Die aufrufende Anwendung sollte trotzdem prüfen, ob es ein Array oder ein einzelnes Object ist. | Object oder Object[] | nein     |
+| payload          | Beinhaltet die Kommunikationsdaten, Antworten auf ein Command oder Anfrage.  Ein payload kann ein einzelnes Object oder ein Array von Objects sein. Stand heute wird ein Array mit einem Object geliefert. Die aufrufende Anwendung sollte trotzdem prüfen, ob es ein Array oder ein einzelnes Object ist. | Object oder Object[] | nein     |
 
 ###### 'payload' vom Typ 'reply'
 
@@ -322,7 +322,7 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
 | inputOptions       | Wird ebenfalls im Zusammenhang mit 'select'-Eingaben verwendet. Hier werden die einzelnen möglichen Optionen gelistet. | Array   | ja       |
 | inputFieldActive   | Gibt an, ob textuelle Eingaben möglich sind.                 | Boolean | nein     |
 | inputFieldVisible  | gibt an, ob das Eingabefeld angezeigt werden soll oder nicht. | Boolean | ja       |
-| inputHint          | Gibt einen Hinweis/Hilfe-Text an, welcher im Eingabefeld angezeigt wird und dem Anwender mitteilt, welche aktion er ausführen kann. | String  | ja       |
+| inputHint          | Gibt einen Hinweis/Hilfe-Text an, welcher im Eingabefeld angezeigt wird und dem Anwender mitteilt, welche Aktion er ausführen kann. | String  | ja       |
 | inputFieldPattern  | Legt das Eingabeformat für das Eingabefeld fest.             | String  | ja       |
 | showResultCount    | Gibt an, wieviele Element angezeigt werden sollen, bevor ein Paging aktiviert wird. Dies ist nur relevant in Verbindung mit der inputOptions Eigenschaft. | Integer | ja       |
 
@@ -342,7 +342,7 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
 | Attribute | Bedeutung                                                    | Typ     | Optional |
 | --------- | ------------------------------------------------------------ | ------- | -------- |
 | label     | Der anzuzeigende Text.                                       | Boolean | nein     |
-| inputType | Der Wert, welcher bei Selektierung als Request an den KBot gesendet wird. Der 'request' sollte vom Typ 'message' sein. | String  | nein     |
+| inputType | Der Wert, welcher bei Selektierung als Request an den Bot gesendet wird. Der 'request' sollte vom Typ 'message' sein. | String  | nein     |
 | styleInfo | Mögliche Zusatzinfo, welche verwendet werden kann um die die Elemente per CSS zu stylen. | String  | ja       |
 | metadata  | Key/Value Store. Wird im Moment nicht verwendet.             | Object  | ja       |
 
