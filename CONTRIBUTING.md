@@ -1,4 +1,4 @@
-Most technical decisions are decided through the "RFC" (Request for Comments) process. Small changes, such as minor grammatical edits to the specification, do not need to need to follow the RFC process. However, if one intends to make a substantive change to the USUBotUniverse specification , the following process should be adhered to:
+Most technical decisions are decided through the "RFC" ([Request for Comments](https://en.wikipedia.org/wiki/Request_for_Comments)) process. Small changes, such as minor grammatical edits to the specification, do not need to need to follow the RFC process. However, if one intends to make a substantive change to the USUBotUniverse specification , the following process should be adhered to:
 
 
 1. Ideally have an informal discussion of the topic on the [USUBotUniverse Subreddit](https://www.reddit.com/r/USUBotUniverse/) with the "Change discussion"-flair in order to gauge basic viability. As a rule of thumb, receiving encouraging feedback from long-standing community members is a good indication that the RFC is worth pursuing.
