@@ -1,4 +1,4 @@
-# KnowledgeBot Kommunikationsprotokoll
+# USUBotUniverse Kommunikationsprotokoll
 
 [TOC]
 
