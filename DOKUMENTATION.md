@@ -65,7 +65,7 @@ Das "session" Element beinhaltet wesentliche Parameter zur eigentlichen Session-
       },
       "attributes":{ },
       "sessionId":"<ID der Session>",
-      "new":<true oder false>
+      "new": true "oder" false
 }
 ```
 
@@ -224,14 +224,14 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
         "bubbles":[
           {
             "content" : "<text>",
-            "delay" : <delay in ms>,
+            "delay" : "delay in ms (int)",
             "metadata" : { },
-            "silentDelay" : <true oder false>
+            "silentDelay" : true "oder" false
           }
         ]
       },
       "interaction" : {
-        "multiSelectAllowed" : <true oder false>,
+        "multiSelectAllowed" : true "oder" false,
         "inputType" : "<input type>",
         "inputOptions" : [ {
           "label" : "<Label>",
@@ -239,7 +239,7 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
           "styleInfo" : "<css style>",
           "metadata" : { }
         } ],
-        "inputFieldActive" : <true oder false>,
+        "inputFieldActive" : true "oder" false,
         "inputHint" : "<hint>"
       }
     } 
@@ -261,9 +261,9 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
           {
             "content" : "<text>",
             "speech" : "<ssml>",
-            "delay" : <delay in ms>,
+            "delay" : "delay in ms (int)",
             "metadata" : { },
-            "silentDelay" : <true oder false>
+            "silentDelay" : true "oder" false
           }
         ]
       }
@@ -280,9 +280,9 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
     {
         "content" : "<text>",
         "speech" : "<ssml>",
-        "delay" : <delay in ms>,
+        "delay" : "delay in ms (int)",
         "metadata" : { },
-    	"silentDelay" : <true oder false>
+    	"silentDelay" : true "oder" false
     }
 ]
 ```
@@ -299,7 +299,7 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
 
 ```json
 "interaction" : {
-    "multiSelectAllowed" : <true oder false>,
+    "multiSelectAllowed" : true "oder" false,
     "inputType" : "<input type>",
     "inputOptions" :[ 
       {
@@ -309,7 +309,7 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
     	"metadata" : { }
 	   }
      ],
-	"inputFieldActive" : <true oder false>,
+	"inputFieldActive" : true "oder" false,
 	"inputHint" : "<hint>"
 }
 ```
