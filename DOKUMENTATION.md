@@ -2,149 +2,149 @@
 
 [TOC]
 
-## Anbindung
+## Connection
 
-Zur Anbindung von verschiedenenen Front-end's stehen im USUBotUniverse sogenannte "Connector's" zur Verfügung. Über diese können verschiedenen Kommunikationsprotokolle zur Anbindung verschiedenener Anwendung generiert werden. Jeder Konnektor wird über einen speziellen Rest-Service mittels eindeutiger URL angesprochen. Die URL ist jeweils in der Bot-Konfiguration des jeweiligen Connector's zu finden.
+For the connection of different front-end's so called "Connector's" are available in the USUBotUniverse. Over these different communication protocols for the binding of different application can be generated. Each connector is addressed via a special rest service using a unique URL. The URL can be found in the bot configuration of the respective connector.
 
-Typischerweise ist solch eine URL wie folgt aufgebaut:
+Typically, such a URL is structured as follows:
 
 ```bash
 http(s)://<server>[:<port>]/kbot-api/interact/<kbot-id>/<con-type>:<con-name>
 ```
 
-| Name       | Bedeutung                                   |
+| Name       | Description                                   |
 | ---------- | ------------------------------------------- |
-| *server*   | IP oder Domain des Servers                  |
-| *port*     | Port des Servers                            |
-| *kbot-id*  | eindeutige ID des Bot's                    |
-| *con-type* | Typ des Connector's                         |
-| *con-name* | Name/eindeutiger Bezeichner des Connector's |
+| *server*   | IP or Domain of the servers                  |
+| *port*     | Port of the servers                            |
+| *kbot-id*  | unique ID of the bot                   |
+| *con-type* | Type of the Connector                         |
+| *con-name* | Name/unique identifier of the connector |
 
-Ein Beispiel:
+An example:
 
 ​	http://localhost:9190/kbot-api/interact/kcpreview/default:Default
 
 
 
-Aktuell stehen zwei Konnektoren zur Verfügung.
+Currently, two connectors are available.
 
-1. Default - der Standard-Connector
-2. Facebook - der Facebook Messenger-Connector
+1. Default - the default connector
+2. Facebook - the Facebook Messenger connector
 
 
 
-## Der "Default" - Connector
+## The "Default" - Connector
 
-Der Default Connector ist der der Standard-Connector mit dem auch eigene Bot der USU (KBot) verbunden wird. Sowohl KBot Widget als auch KFirst verwenden diesen zur Kommunikation. Er sollte auch immer dann verwendet werden, wenn eine Drittanwendung mit einem Bot kommunizieren möchte. Sollten bestimmte Dinge nicht mit ihm abgebildet werden, so sollten ein neuer Connector-Typ entwickelt werden. Der Default-Connector kommunziert mittels http(s). Anfragen werden immer als HTTP-Post Commands gesendet.
+The default connector is the standard connector with which the USU's own bot (KBot) is connected. Both KBot Widget and KFirst use it for communication. It should also be used whenever a third party application wants to communicate with a bot. If certain things are not mapped with it, a new connector type should be developed. The default connector communicates using http(s). Requests are always sent as HTTP post commands.
 
-### Die Basis JSON-Struktur
+### The basic JSON structure
 
-Das Kommunikationsprotokoll des USUBotUniverse verwendet zum Austausch von Daten eine JSON-Datenstruktur. Es gibt eine Basisstruktur für Anfragen "Requests" und eine Basisstruktur für Antworten "Responses". 
+The communication protocol of the USUBotUniverse uses a JSON data structure to exchange data. There is a base structure for requests and a base structure for responses. 
 
 #### Request
 
-Das Anfrage-Objekt eines Requests, besteht aus zwei wesentlichen Elementen.
+The request object of a request, consists of two essential elements.
 
 1. "session" - Element
 2. "request" - Element
 
-Das "session" Element beinhaltet wesentliche Parameter zur eigentlichen Session-Verwaltung einer Bot-Kommunikation. Das "request" Element enthält die eigentliche Anfrage an den verbundenen Bot.
+The "session" element contains essential parameters for the actual session management of a bot communication. The "request" element contains the actual request to the connected bot.
 
-##### Aufbau des "session"-Elementes:
+##### Structure of the "session" element:
 
 ```json
 "session": 
 {  
       "application":
       {  
-        "applicationId":"<Name der aufrufenden Anwendung>"
+        "applicationId":"<Name of the calling application>"
       },
       "user":
       {  
-        "userId":"<ID des verwendeten Users>"
+        "userId":"<ID of the user used>"
       },
       "attributes":{ },
-      "sessionId":"<ID der Session>",
-      "new": true "oder" false
+      "sessionId":"<ID of the session>",
+      "new": true "or" false
 }
 ```
 
-###### Bedeutung der "session" Attribute:
+###### Description of the "session" attributes:
 
-| Attribute   | Bedeutung                                                    | Typ     | Optional |
+| Attributes   | Description                                                   | Type     | Optional |
 | ----------- | ------------------------------------------------------------ | ------- | -------- |
-| application | Ein Object, welches Informationen über die aufrufende Application beinhaltet. | Object  | nein     |
-| user        | Ein Object, welches Informationen über den User, welcher eine Anfrage stellt, beinhaltet. Hat bisher noch keine Bedeutung und es sollte "Kbot-Default-User" als Wert verwendet werden. | Object  | ja       |
-| attributes  | Ein Object, welches eine Key/Value Liste representiert, mit der frei definierbare Werte mit der Anfrage übersendet werden können. | Object  | ja       |
-| sessionId   | Die Id der Kommunikations-Session. Diese sollte bei jedem Request mitgegeben werden. Wird keine "Session-ID" mitgegeben, so wird eine neue Kommunikations-Session erstellt und deren ID wird mit dem Respons geliefert. Eine Aufrufende Anwendung kann auch ein eigene ID hier angeben. Sollte unter dieser ID eine Session existieren, so verwendet der Bot diese Session. Wenn nicht, wird intern eine neue Session angelegt und die gegebene Session wird als ID verwendet. | String  | nein     |
-| new         | Gibt an, ob eine neue Session unter dieser ID angelegt werden soll. Dies ist dann relevant, falls unter einer angegebenen Session-ID bereits eine Session auf dem Server existiert. Diese Session wird dann verworfen und eine neue Session wird erstellt. | Boolean | ja       |
+| application | An object that contains information about the calling application. | Object  | no     |
+| user        | An object containing information about the user making a request. Has no meaning yet and "Kbot-Default-User" should be used as value. | Object  | yes       |
+| attributes  | An object that represents a key/value list with which freely definable values can be sent with the request. | Object  | yes       |
+| sessionId   | The id of the communication session. This should be supplied with every request. If no session ID is specified, a new communication session is created and its ID is supplied with the response. A calling application can also specify its own ID here. If a session exists under this ID, the bot uses this session. If not, a new session is created internally and the given session is used as ID. | String  | no     |
+| new         | Specifies whether a new session should be created under this ID. This is relevant if a session already exists on the server under a specified session ID. This session is then discarded and a new session is created. | Boolean | yes       |
 
-###### Das "application" Arttribut
+###### The "application" attribute
 
-| Attribut      | Bedeutung                                                    | Typ    | Optional |
+| Attribute      | Description                                                  | Type    | Optional |
 | ------------- | ------------------------------------------------------------ | ------ | -------- |
-| applicationId | Dieses Attribut beinhaltet den Namen der aufrufenden Anwendung. z.B. 'Alexa'. | String | nein     |
+| applicationId | This attribute contains the name of the calling application. e.g. 'Alexa'. | String | no     |
 
-###### Das "user" Attribut
+###### The "user" attribute
 
-| Attribute | Bedeutung                                                    | Typ    | Optional |
+| Attribute | Description                                                    | Type    | Optional |
 | --------- | ------------------------------------------------------------ | ------ | -------- |
-| userId    | Die id des Users, welcher die Anfrage sendet. Hat im Moment noch keine Bedeutung. | String | nein     |
+| userId    | The id of the user who sends the request. Has no meaning at the moment. | String | no     |
 
-###### Das "attributes" Attribut
+###### The "attributes" attribute
 
-An diesem Object können beliebige Key/Value Paare definiert werden.
+Any key/value pairs can be defined at this object.
 
 
 
-##### Aufbau des "request"-Elementes:
+##### Structure of the "request" element:
 
 ```json
 "request":
 {  
-      "type":"<Typ des Requests>",
-      "requestId":"<ID des Requests>",
-      "locale":"<verwendete Sprache>",
-      "timestamp":"<Timestamp im UTC Format>",
+      "type":"<Request type>",
+      "requestId":"<ID of the request>",
+      "locale":"<language used>",
+      "timestamp":"<Timestamp in UTC format>",
       "payload":
       {  
-          "type":"<Typ/Inhalt des Payload>"
+          "type":"<Payload type/content>"
       }
 }
 ```
 
-###### Bedeutung der "request" - Attribute
+###### Description of the "request" attributes
 
-| Attribut  | Bedeutung                                                    | Typ    | Optional |
+| Attribute  | Description                                                    | Type    | Optional |
 | --------- | ------------------------------------------------------------ | ------ | -------- |
-| type      | Gibt den Typ der Anfrage an. Mögliche Werte sind im Moment 'command' und 'message'. | String | nein     |
-| requestId | Die ID des Requests. Diese wird von der anfragenden Anwendung gesetzt. Sie hat keine Auswirkung auf die Kommunikation an sich. Im Response wird diese ID wieder zurück geliefert. | String | ja       |
-| locale    | Gibt die verwendete (Text) Sprache für die Anfrage an.       | String | nein     |
-| timestamp | Ein Zeitstempel, wann der Request angelegt wurde. Dieser wird von der aufrufenden Anwendung vergeben und derzeit keine weitere Bedeutung. Der Zeitstempel sollte im UTC Zeitformat angegeben werden. | String | ja       |
-| payload   | Hier befinden sich die eigentlichen Kommunikationsdaten. Der Aufbau dieses Objektes hängt vom angegebenen Request-Type ab. | Object | nein     |
+| type      | Specifies the type of the request. Possible values at the moment are 'command' and 'message'. | String | no     |
+| requestId | The ID of the request. This is set by the requesting application. It has no effect on the communication itself. This ID is returned in the response. | String | yes       |
+| locale    | Specifies the (text) language used for the request.       | String | no     |
+| timestamp | A timestamp of when the request was created. This is assigned by the calling application and currently has no further meaning. The timestamp should be specified in UTC time format. | String | yes       |
+| payload   | The actual communication data is located here. The structure of this object depends on the specified request type. | Object | no     |
 
-###### 'payload' vom Typ 'command'
+###### 'payload' of type 'command'
 
-Mithilfe des 'payload' vom Typ 'command', wird angegeben, welche 'native' Bot Aktion ausgeführt werden soll. 
+Using the 'payload' of type 'command', it is specified which 'native' bot action should be executed. 
 
 ```json
 "payload":{  
     "type":"<action>"
 }
 ```
-| Attribut | Bedeutung                                                    | Typ    | Optional |
+| Attribute | Description                                                    | Type    | Optional |
 | -------- | ------------------------------------------------------------ | ------ | -------- |
-| type     | Gibt das auszuführende Kommand an.<br />Mögliche Commands sind:<br />'startSession', resetSession', 'endSession' | String | ja       |
+| type     | Specifies the command to execute.<br />Possible commands are:<br />'startSession', resetSession', 'endSession'. | String | yes       |
 
-Mögliche Aktionen:
+Possible actions:
 
-| Aktion       | Bedeutung                                                    | Parameter |
+| Action       | Description                                                    | Parameter |
 | ------------ | ------------------------------------------------------------ | --------- |
-| startSession | Startet eine neue Session. Sollte eine Session über die 'sessionId' angegeben worden sein, so wird diese beendet, falls vorhanden. | keine     |
-| resetSession | Beendet die aktuelle Session und startet sie neu. Die Session selber wird anhand der 'sessionId' im Session-Object definiert. | keine     |
-| endSession   | Beendet die aktuelle Session. Die Session selber wird anhand der 'sessionId' im Session-Object definiert. | keine       |
+| startSession | Starts a new session. If a session has been specified via the 'sessionId', it will be terminated, if present. | none     |
+| resetSession | Ends the current session and restarts it. The session itself is defined by the 'sessionId' in the session object. | none     |
+| endSession   | Ends the current session. The session itself is defined by the 'sessionId' in the session object. | none       |
 
-###### 'payload' vom Typ 'message'
+###### 'payload' of type 'message'
 
 ```json
 "payload":{
@@ -152,11 +152,11 @@ Mögliche Aktionen:
 }
 ```
 
-| Attribut | Bedeutung                                                    | Typ    | Optional |
+| Attribute | Description                                                   | Type    | Optional |
 | -------- | ------------------------------------------------------------ | ------ | -------- |
-| text     | Die eigentliche textuelle Eingabe, die an den Bot gesendet werden soll. | String | ja       |
+| text     | The actual textual input to be sent to the bot. | String | yes       |
 
-##### Beispiel für eine Request-Anfrage:
+##### Example of a request query:
 
 ```json
 {  
@@ -187,14 +187,14 @@ Mögliche Aktionen:
 
 #### Response
 
-Das Antwort-Objekt eines Response, besteht aus zwei wesentlichen Elementen.
+The response object of a response, consists of two main elements.
 
-1. "sessionAttributes" - Element
-2. "response" - Element
+1. "sessionAttributes" element
+2. "response" element
 
-Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentlichen Session-Verwaltung einer Bot-Kommunikation. Das "response"-Element beinhalt alle Informationen zu einer Anfrage.
+The "sessionAttributes" element contains essential parameters for the actual session management of a bot communication. The "response" element contains all information about a request.
 
-##### Aufbau des "sessionAttributes"-Elementes:
+##### Structure of the "sessionAttributes" element:
 
 ```json
 "sessionAttributes" : {
@@ -202,58 +202,58 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
 }
 ```
 
-| Attribute | Bedeutung                                                    | Typ      | Optional |
+| Attribute | Description                                                    | Type      | Optional |
 | --------- | ------------------------------------------------------------ | -------- | -------- |
-| sessionId    | Die id der Session, zu der die Anfrage gehört. | String | nein     |
+| sessionId    | The id of the session to which the request belongs. | String | no     |
 
-##### Aufbau des "response"-Elementes:
+##### Structure of the "response" element:
 
-| Attribute        | Bedeutung                                                    | Typ                  | Optional |
+| Attribute        | Description                                                    | Type                  | Optional |
 | ---------------- | ------------------------------------------------------------ | -------------------- | -------- |
-| shouldEndSession | gibt an, ob die Session auf dem Server beendet wurde. Die aufrufende Anwendung sollte ebenfalls ihre Session oder ähnliches beenden. | Boolean              | ja       |
-| type             | Gibt den Typ der 'response' an. Im Momment existiert nur der Typ "reply". | String               | nein     |
-| payload          | Beinhaltet die Kommunikationsdaten, Antworten auf ein Command oder Anfrage.  Ein payload kann ein einzelnes Object oder ein Array von Objects sein. Stand heute wird ein Array mit einem Object geliefert. Die aufrufende Anwendung sollte trotzdem prüfen, ob es ein Array oder ein einzelnes Object ist. | Object oder Object[] | nein     |
+| shouldEndSession | indicates whether the session on the server has ended. The calling application should also terminate its session or similar. | Boolean              | yes       |
+| type             | Specifies the type of the 'response'. At the moment only the type "reply" exists. | String               | no     |
+| payload          | Contains the communication data, responses to a command or request.  A payload can be a single object or an array of objects. As of today, an array is delivered with an object. The calling application should still check whether it is an array or a single object. | Object or Object[] | no     |
 
-###### 'payload' vom Typ 'reply'
+###### 'payload' of type 'reply'
 
 ```json
 "payload":[ 
     {
-      "language" : "<sprache>",
+      "language" : "<language>",
       "conversation" : {
         "bubbles":[
           {
             "content" : "<text>",
             "delay" : "delay in ms (int)",
             "metadata" : { },
-            "silentDelay" : true "oder" false
+            "silentDelay" : true "or" false
           }
         ]
       },
       "interaction" : {
-        "multiSelectAllowed" : true "oder" false,
+        "multiSelectAllowed" : true "or" false,
         "inputType" : "<input type>",
         "inputOptions" : [ {
-          "label" : "<Label>",
+          "label" : "<label>",
           "value" : "<command>",
           "styleInfo" : "<css style>",
           "metadata" : { }
         } ],
-        "inputFieldActive" : true "oder" false,
+        "inputFieldActive" : true "or" false,
         "inputHint" : "<hint>"
       }
     } 
 ]
 ```
 
-| Attribute    | Bedeutung                                                    | Typ    | Optional |
+| Attribute    | Description                                                    | Type    | Optional |
 | ------------ | ------------------------------------------------------------ | ------ | -------- |
-| language     | Gibt an, in welcher Sprache die Antwort verfasst ist.        | String | nein     |
-| topic        | Gibt das Topic/Thema der Antwort an.                         | String | ja       |
-| conversation | Enthält die Textausgabe des Bots in form von einzelnen bubbles. | Object | nein     |
-| interaction  | Beinhaltet die möglichen Eingabeoptionen für den Anwender.   | Object | nein     |
+| language     | Indicates in which language the answer is written.        | String | no     |
+| topic        | Indicates the topic/topic of the answer.                        | String | yes       |
+| conversation | Contains the text output of the bot in the form of individual bubbles. | Object | no     |
+| interaction  | Contains the possible input options for the user.   | Object | no     |
 
-###### Das 'conversation' Attribut
+###### The 'conversation' attribute
 
 ```json
 "conversation" : {
@@ -263,17 +263,17 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
             "speech" : "<ssml>",
             "delay" : "delay in ms (int)",
             "metadata" : { },
-            "silentDelay" : true "oder" false
+            "silentDelay" : true "or" false
           }
         ]
       }
 ```
 
-| Attribute | Bedeutung                                             | Typ   | Optional |
+| Attribute | Description                                             | Type   | Optional |
 | --------- | ----------------------------------------------------- | ----- | -------- |
-| bubbles   | Beinhaltet ein oder mehrere Textausgaben für den Bot. | Array | nein     |
+| bubbles   | Includes one or more text outputs for the bot. | Array | no     |
 
-###### Das 'bubbles' Attribute
+###### The 'bubbles' attribute
 
 ```json
 "bubbles":[
@@ -282,56 +282,56 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
         "speech" : "<ssml>",
         "delay" : "delay in ms (int)",
         "metadata" : { },
-    	"silentDelay" : true "oder" false
+    	"silentDelay" : true "or" false
     }
 ]
 ```
 
-| Attribute   | Bedeutung                                                    | Typ     | Optional |
+| Attribute   | Description                                                    | Type     | Optional |
 | ----------- | ------------------------------------------------------------ | ------- | -------- |
-| content     | Der auszugebenende Text innerhalb einer Sprechblase.         | String  | ja       |
-| speech      | Der zu sprechende Text einer Sprechblase in SSML Syntax.     | String  | ja       |
-| delay       | Gibt die Wartezeit in Millisekunden an, bevor die Sprechblase im Frontend angezeigt werden soll. Wenn ein Wert <= 0 angegeben wird, so wird die Sprechblase sofort angezeigt. Defaultwert ist 0. | Integer | ja       |
-| silentDelay | Wenn hier der Wert 'false' angegeben wird, so wird für die Wartezeit 'delay' eine Animation (Denkpause) angezeigt. Für den Wert 'true' wird nichts angezeigt. Der Defaultwert ist 'false'. | Boolean | ja       |
-| metadata    | Ein Key/Value Speicher für zusätzliche Informationen.        | Object  | ja       |
+| content     | The text to be output inside a speech bubble.         | String  | yes       |
+| speech      | The text of a speech bubble to be spoken in SSML syntax.     | String  | yes       |
+| delay       | Specifies the waiting time in milliseconds before the balloon should be displayed in the frontend. If a value <= 0 is specified, the balloon is displayed immediately. Default value is 0. | Integer | yes       |
+| silentDelay | If the value 'false' is specified here, an animation (pause for thought) is displayed for the waiting time 'delay'. For the value 'true' nothing is displayed. The default value is 'false'. | Boolean | yes       |
+| metadata    | A Key/Value memory for additional information.        | Object  | yes       |
 
-###### Das 'interaction' Attribut
+###### The 'interaction' attribute
 
 ```json
 "interaction" : {
-    "multiSelectAllowed" : true "oder" false,
+    "multiSelectAllowed" : true "or" false,
     "inputType" : "<input type>",
     "inputOptions" :[ 
       {
-    	"label" : "<Label>",
+    	"label" : "<label>",
     	"value" : "<command>",
     	"styleInfo" : "<css style>",
     	"metadata" : { }
 	   }
      ],
-	"inputFieldActive" : true "oder" false,
+	"inputFieldActive" : true "or" false,
 	"inputHint" : "<hint>"
 }
 ```
 
-| Attribute          | Bedeutung                                                    | Typ     | Optional |
+| Attribute          | Description                                                    | Type     | Optional |
 | ------------------ | ------------------------------------------------------------ | ------- | -------- |
-| multiSelectAllowed | Abhängig vom Eingabetyp, gibt dieser Wert an, ob eine Mehrfachauswahl möglich ist. Wird im Zusammenhang mit 'select'-Eingaben verwendet. | Boolean | ja       |
-| inputType          | Gibt die Art der Eingabemöglichkeit durch den Anwender an.   | String  | nein     |
-| allowAutoComplete  | Gibt an, ob an der Oberfläche die AutoComplete -Funktion aktiviert werden soll. Hierbei handelt es sich um ein KBot-Feature. | Boolean | ja       |
-| inputOptions       | Wird ebenfalls im Zusammenhang mit 'select'-Eingaben verwendet. Hier werden die einzelnen möglichen Optionen gelistet. | Array   | ja       |
-| inputFieldActive   | Gibt an, ob textuelle Eingaben möglich sind.                 | Boolean | nein     |
-| inputFieldVisible  | gibt an, ob das Eingabefeld angezeigt werden soll oder nicht. | Boolean | ja       |
-| inputHint          | Gibt einen Hinweis/Hilfe-Text an, welcher im Eingabefeld angezeigt wird und dem Anwender mitteilt, welche Aktion er ausführen kann. | String  | ja       |
-| inputFieldPattern  | Legt das Eingabeformat für das Eingabefeld fest.             | String  | ja       |
-| showResultCount    | Gibt an, wieviele Element angezeigt werden sollen, bevor ein Paging aktiviert wird. Dies ist nur relevant in Verbindung mit der inputOptions Eigenschaft. | Integer | ja       |
+| multiSelectAllowed | Depending on the input type, this value indicates whether multiple selection is possible. Used in connection with 'select' inputs. | Boolean | yes       |
+| inputType          | Specifies the type of input option by the user.   | String  | no     |
+| allowAutoComplete  | Specifies whether the AutoComplete function should be activated on the interface. This is a KBot feature. | Boolean | yes       |
+| inputOptions       | Also used in connection with 'select' inputs. The individual possible options are listed here. | Array   | yes       |
+| inputFieldActive   | Indicates whether textual input is possible.                 | Boolean | no     |
+| inputFieldVisible  | Specifies whether the input field should be displayed or not. | Boolean | yes       |
+| inputHint          | Specifies a hint/help text which is displayed in the input field and tells the user what action he can perform. | String  | yes       |
+| inputFieldPattern  | Sets the input format for the input field.            | String  | yes       |
+| showResultCount    | Specifies how many element should be displayed before a paging is activated. This is only relevant in conjunction with the inputOptions property. | Integer | yes       |
 
-###### Das 'inputOptions' Attribut
+###### The 'inputOptions' attribute
 
 ```json
 "inputOptions" :[ 
       {
-    	"label" : "<Label>",
+    	"label" : "<label>",
     	"value" : "<command>",
     	"styleInfo" : "<css style>",
     	"metadata" : { }
@@ -339,16 +339,16 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
      ]
 ```
 
-| Attribute | Bedeutung                                                    | Typ     | Optional |
+| Attribute | Description                                                    | Type     | Optional |
 | --------- | ------------------------------------------------------------ | ------- | -------- |
-| label     | Der anzuzeigende Text.                                       | Boolean | nein     |
-| inputType | Der Wert, welcher bei Selektierung als Request an den Bot gesendet wird. Der 'request' sollte vom Typ 'message' sein. | String  | nein     |
-| styleInfo | Mögliche Zusatzinfo, welche verwendet werden kann um die die Elemente per CSS zu stylen. | String  | ja       |
-| metadata  | Key/Value Store. Wird im Moment nicht verwendet.             | Object  | ja       |
+| label     | The text to be displayed.                                       | Boolean | no     |
+| inputType | The value that will be sent as a request to the bot when selected. The 'request' should be of type 'message'. | String  | no     |
+| styleInfo | Possible additional info, which can be used to style the elements via CSS. | String  | yes       |
+| metadata  | Key/Value Store. Not used at the moment.          | Object  | yes       |
 
 
 
-##### Beispiel für eine Response-Antwort:
+##### Example of a response answer:
 
 ```json
 {
@@ -372,13 +372,13 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
         "multiSelectAllowed" : false,
         "inputType" : "vertical_select",
         "inputOptions" : [ {
-          "label" : "Guided Tour durch die angebotenen Tips und Tricks",
+          "label" : "Guided tour of the tips and tricks offered",
           "value" : "#cmd://odin?i=int487",
           "styleInfo" : "dialog",
           "metadata" : { }
         } ],
         "inputFieldActive" : true,
-        "inputHint" : "Hier eingeben oder Option wählen... "
+        "inputHint" : "Enter here or select option... "
       }
     } ]
   }
@@ -387,11 +387,11 @@ Das "sessionAttributes" Element beinhaltet wesentliche Parameter zur eigentliche
 
 
 
-### Beispiel Requests für die Kommunikation
+### Example requests for communication 
 
-#### Eröffnung der Kommunikation
+#### Communication opening
 
-Die Eröffnung einer Kommunikation kann entweder über das 'startSession' - Command oder direkt über das Senden einer Anfrage durchgeführt werden.
+Opening a communication can be done either by using the 'startSession' command or directly by sending a request.
 
 <u>JSON Request Structure</u>
 
@@ -443,19 +443,19 @@ Die Eröffnung einer Kommunikation kann entweder über das 'startSession' - Comm
         "multiSelectAllowed" : false,
         "inputType" : "vertical_select",
         "inputOptions" : [ {
-          "label" : "Guided Tour durch die angebotenen Tips und Tricks",
+          "label" : "Guided tour of the tips and tricks offered",
           "value" : "#cmd://odin?i=int487",
           "styleInfo" : "dialog",
           "metadata" : { }
         } ],
         "inputFieldActive" : true,
-        "inputHint" : "Hier eingeben oder Option wählen... "
+        "inputHint" : "Enter here or select option... "
       }
     } ]
   }
 }
 ```
-<u>Beispiel als cUrl:</u>
+<u>Example as cUrl:</u>
 
 ```bash
 curl "http://localhost:9190/kbot-api/interact/kcpreview/widget:Default" -H "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0" -H "Accept: */*" -H "Accept-Language: de,en-US;q=0.7,en;q=0.3" -H "Content-Type: application/json; charset=UTF-8" -H "Connection: keep-alive" --data "{\"session\":{\"application\":{\"applicationId\":\"Knowledge Bot Widget\"},\"user\":{\"userId\":\"Kbot-Default-User\"},\"attributes\":{},\"new\":true},\"request\":{\"type\":\"command\",\"requestId\":\"1\",\"locale\":\"de\",\"timestamp\":\"2018-11-09T16:06:52.331Z\",\"payload\":{\"type\":\"startSession\"}}}"
@@ -463,7 +463,7 @@ curl "http://localhost:9190/kbot-api/interact/kcpreview/widget:Default" -H "User
 
 
 
-#### Stellen einer Frage
+#### Asking a question
 
 <u>JSON Request Structure</u>
 
@@ -486,7 +486,7 @@ curl "http://localhost:9190/kbot-api/interact/kcpreview/widget:Default" -H "User
         "locale":"de",
         "timestamp":"2018-11-12T21:48:04.102Z",
         "payload":{
-            "text":"Was ist alexa brain"
+            "text":"What is alexa brain"
         }
     }
 }
@@ -506,11 +506,11 @@ curl "http://localhost:9190/kbot-api/interact/kcpreview/widget:Default" -H "User
       "language" : "de",
       "conversation" : {
         "bubbles" : [ {
-          "content" : "Alexa Brain ist eine tolles Stück Software.",
+          "content" : "Alexa Brain is a great piece of software.",
           "delay" : 0,
           "silentDelay" : false
         }, {
-          "content" : "War dies die richtige Antwort?",
+          "content" : "Was this the right answer?",
           "delay" : 1000,
           "silentDelay" : true
         } ]
@@ -519,13 +519,13 @@ curl "http://localhost:9190/kbot-api/interact/kcpreview/widget:Default" -H "User
         "multiSelectAllowed" : false,
         "inputType" : "vertical_select",
         "inputOptions" : [ {
-          "label" : "Ja",
+          "label" : "Yes",
           "value" : "#cmd://yes"
         }, {
-          "label" : "Nein",
+          "label" : "No",
           "value" : "#cmd://no"
         } ],
-        "inputHint" : "Option wählen...",
+        "inputHint" : "Select option...",
         "inputFieldActive" : false
       }
     } ]
@@ -533,15 +533,15 @@ curl "http://localhost:9190/kbot-api/interact/kcpreview/widget:Default" -H "User
 }
 ```
 
-<u>Beispiel als cUrl:</u>
+<u>Example as cUrl:</u>
 
 ```bash
-curl "http://knowledgefirst-poc.usu.de/kbot-api/interact/kcpreview/widget:Default" -H "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0" -H "Accept: */*" -H "Accept-Language: de,en-US;q=0.7,en;q=0.3" --compressed -H "Content-Type: application/json; charset=UTF-8" -H "Connection: keep-alive" --data "{\"session\":{\"application\":{\"applicationId\":\"Knowledge Bot Widget\"},\"user\":{\"userId\":\"Kbot-Default-User\"},\"attributes\":{},\"sessionId\":\"633f9264:16708c1a9b8:-7ffb\",\"new\":false},\"request\":{\"type\":\"message\",\"requestId\":\"2\",\"locale\":\"de\",\"timestamp\":\"2018-11-12T21:48:04.102Z\",\"payload\":{\"text\":\"Was ist alexa brain\"}}}"
+curl "http://knowledgefirst-poc.usu.de/kbot-api/interact/kcpreview/widget:Default" -H "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0" -H "Accept: */*" -H "Accept-Language: de,en-US;q=0.7,en;q=0.3" --compressed -H "Content-Type: application/json; charset=UTF-8" -H "Connection: keep-alive" --data "{\"session\":{\"application\":{\"applicationId\":\"Knowledge Bot Widget\"},\"user\":{\"userId\":\"Kbot-Default-User\"},\"attributes\":{},\"sessionId\":\"633f9264:16708c1a9b8:-7ffb\",\"new\":false},\"request\":{\"type\":\"message\",\"requestId\":\"2\",\"locale\":\"de\",\"timestamp\":\"2018-11-12T21:48:04.102Z\",\"payload\":{\"text\":\"What is alexa brain\"}}}"
 ```
 
 
 
-#### Senden einer Option
+#### Sending an option
 
 <u>JSON Request Structure</u>
 
@@ -584,18 +584,18 @@ curl "http://knowledgefirst-poc.usu.de/kbot-api/interact/kcpreview/widget:Defaul
       "language" : "de",
       "conversation" : {
         "bubbles" : [ {
-          "content" : "Super!",
+          "content" : "Great!",
           "delay" : 0,
           "silentDelay" : false
         }, {
-          "content" : "Solltest Du noch weitere Fragen haben, schieß los ...",
+          "content" : "If you have any further questions, feel free to ask ...",
           "delay" : 500,
           "silentDelay" : false
         } ]
       },
       "interaction" : {
         "inputType" : "text",
-        "inputHint" : "Hier eingeben...",
+        "inputHint" : "Enter here...",
         "inputFieldActive" : true
       }
     } ]
@@ -605,13 +605,13 @@ curl "http://knowledgefirst-poc.usu.de/kbot-api/interact/kcpreview/widget:Defaul
 
 
 
-<u>Beispiel als cUrl</u>
+<u>Example as cUrl</u>
 
 ```bash
 curl "http://knowledgefirst-poc.usu.de/kbot-api/interact/kcpreview/widget:Default" -H "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0" -H "Accept: */*" -H "Accept-Language: de,en-US;q=0.7,en;q=0.3" --compressed -H "Referer: http://knowledgefirst-poc.usu.de/kbot-market/bots/preview/kcpreview" -H "Content-Type: application/json; charset=UTF-8" -H "x-kbot-token: /*\"kcpreview\"*/" -H "lang: en" -H "x-referer: http://knowledgefirst-poc.usu.de/kbot-market/bots/preview/kcpreview" -H "Connection: keep-alive" -H "Cookie: _ga=GA1.2.756883637.1525766520" --data "{\"session\":{\"application\":{\"applicationId\":\"Knowledge Bot Widget\"},\"user\":{\"userId\":\"Kbot-Default-User\"},\"attributes\":{},\"sessionId\":\"633f9264:16708c1a9b8:-7ffb\",\"new\":false},\"request\":{\"type\":\"message\",\"requestId\":\"4\",\"locale\":\"de\",\"timestamp\":\"2018-11-12T21:59:02.750Z\",\"payload\":{\"text\":\"#cmd://yes\"}}}"
 ```
 
-#### Beenden der Kommunikation
+#### Terminate communication
 
 <u>JSON Request Structure</u>
 
@@ -654,7 +654,7 @@ curl "http://knowledgefirst-poc.usu.de/kbot-api/interact/kcpreview/widget:Defaul
       "language" : "de",
       "conversation" : {
         "bubbles" : [ {
-          "content" : "Bis zum nächsten mal. Tschüß!",
+          "content" : "Until the next time. Bye!",
           "delay" : 0,
           "metadata" : { },
           "silentDelay" : false
@@ -665,7 +665,7 @@ curl "http://knowledgefirst-poc.usu.de/kbot-api/interact/kcpreview/widget:Defaul
 }
 ```
 
-<u>Beispiel als cUrl:</u>
+<u>Example as cUrl:</u>
 
 ```bash
 curl "http://localhost:9190/kbot-api/interact/kcpreview/widget:Default" -H "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0" -H "Accept: */*" -H "Accept-Language: de,en-US;q=0.7,en;q=0.3" --compressed -H "Content-Type: application/json; charset=UTF-8" -H "Connection: keep-alive" --data "{\"session\":{\"application\":{\"applicationId\":\"Knowledge Bot Widget\"},\"user\":{\"userId\":\"Kbot-Default-User\"},\"attributes\":{},\"new\":false,\"sessionId\": \"633f9264:16708c1a9b8:-7ffb\"},\"request\":{\"type\":\"command\",\"requestId\":\"1\",\"locale\":\"de\",\"timestamp\":\"2018-11-09T16:06:53.001Z\",\"payload\":{\"type\":\"endSession\"}}}"
