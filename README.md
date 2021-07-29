@@ -1,4 +1,4 @@
-![turbulent-wires](![andy-holmes-BIdxEi7cWLM-unsplash](https://user-images.githubusercontent.com/84908019/127500924-ff1fba85-3363-41ec-9088-694c9e9f23dc.jpg))
+![andy-holmes-BIdxEi7cWLM-unsplash](https://user-images.githubusercontent.com/84908019/127501021-f973002b-0b86-4691-99a5-f50e6b53a018.jpg)
 
 What is the USUBotUniverse?
 --------------------------
