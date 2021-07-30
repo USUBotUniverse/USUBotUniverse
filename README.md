@@ -1,4 +1,4 @@
-![andy-holmes-BIdxEi7cWLM-unsplash - Kopie](https://user-images.githubusercontent.com/84908019/127502056-31a052ed-e3b7-445e-94c3-0237473f2261.jpg)
+<img width="657" alt="Infografik" src="https://user-images.githubusercontent.com/84908019/127643470-aaf31384-da98-4352-8702-bea73f3a2849.PNG">
 
 
 What is the USUBotUniverse?
