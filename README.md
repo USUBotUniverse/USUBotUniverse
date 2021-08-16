@@ -2,7 +2,7 @@
 
 
 # What is the USUBotUniverse?
---------------------------
+
 The USUBotUniverse is a free and open source Bot-Communication-Protocol published and administrated by the USU GmbH.
 The USUBotUniverse represents a bot-communication-protocoll which provides a universal communication format based on JSON for any kind of chatbot.
 The concept divides chatbots into two roles, expert and lead bots.
