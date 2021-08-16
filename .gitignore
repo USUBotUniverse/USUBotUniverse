@@ -1,1 +1,43 @@
+!.mvn/wrapper/maven-wrapper.jar
+### MAVEN ###
+target/
 
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+*.log
+kbot-core/.sts4-cache/
+kbot-application/.sts4-cache/
+kbot-bot-runtime/.sts4-cache/
+
+temp/
+
+launch.json
+settings.json
+*.mv.db
+*.trace.db
+package-lock.json
+*.pid
+kbot-module-manager/kbot-module-manager-frontend/package-lock.json
+kbot-module-admin/kbot-module-admin-frontend/package-lock.json
+
+proxy.conf.json
