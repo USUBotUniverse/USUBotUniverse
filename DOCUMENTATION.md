@@ -1,4 +1,4 @@
-# USUBotUniverse Kommunikationsprotokoll
+# USUBotUniverse communication protocol
 
 [TOC]
 
