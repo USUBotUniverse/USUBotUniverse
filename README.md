@@ -1,25 +1,25 @@
 <img width="662" alt="Infografik" src="https://user-images.githubusercontent.com/84908019/127643618-f19b1810-71dd-4a68-877f-e13157f00a0d.PNG">
 
 
-# What is the USUBotUniverse?
+# What is the USU Bot Universe?
 
-The USUBotUniverse is a free and open source chatbot-communication-protocol published and administrated by the USU GmbH.
-The USUBotUniverse represents a chatbot-communication-protocoll which provides a universal communication format based on JSON for any kind of chatbot.
+The USU Bot Universe is a free and open source chatbot-communication-protocol published and administrated by the USU GmbH.
+The USU Bot Universe represents a chatbot-communication-protocoll which provides a universal communication format based on JSON for any kind of chatbot.
 The concept divides chatbots into two roles, expert and lead bots.
 The expert bots are chatbots that have been registered in the universe and can provide information on specific topics.
 The other class, the lead bot, is the entry-level chatbot that first communicates with the user and assigns a matching expert bot.
 The lead bot acts as a kind of moderator, whereas the expert bot is responsible for actually answering the question.
-In the course of the project, interfaces for many different chatbots based on different technologies will be developed in order to create a way to connect them to the USUBotUniverse.
-The vision of the USUBotUniverse is to combine chatbots and create entire chatbot networks.
+In the course of the project, interfaces for many different chatbots based on different technologies will be developed in order to create a way to connect them to the USU Bot Universe.
+The vision of the USU Bot Universe is to combine chatbots and create entire chatbot networks.
 
 For further information visit our [wiki](https://github.com/USUBotUniverse/USUBotUniverse/wiki)!
 
 # Community and Support
-There are a number of places to ask questions and get involved within the USUBotUniverse community. Our community thrives the more you get involved and we encourage you to ask questions, provide answers, and make contributions.
+There are a number of places to ask questions and get involved within the USU Bot Universe community. Our community thrives the more you get involved and we encourage you to ask questions, provide answers, and make contributions.
 
-* [USUBotUniverse Forum](https://www.reddit.com/r/USUBotUniverse/) - View previously answered questions about the USUBotUniverse or post a new questions.
+* [USU Bot Universe Forum](https://www.reddit.com/r/USUBotUniverse/) - View previously answered questions about the USUBotUniverse or post a new questions.
 * [Issues](https://github.com/USUBotUniverse/USUBotUniverse/issues) - Any bugs, ambiguity, or problems with the specification you encounter should be reported here. You can also create issues which are feature requests, however the most likely way to get a feature into the spec is by creating a PR yourself.
-* [Getting started](https://github.com/USUBotUniverse/USUBotUniverse/wiki/Tutorials-and-examples) - View tutorials with examples on how to use the USUBotUniverse communication-protocol.
+* [Getting started](https://github.com/USUBotUniverse/USUBotUniverse/wiki/Tutorials-and-examples) - View tutorials with examples on how to use the USU Bot Universe communication-protocol.
 
 # Documentation
 * [USUBotUniverse Doc](https://github.com/USUBotUniverse/USUBotUniverse/wiki/Dokumentation-EN)
