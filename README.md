@@ -1,4 +1,4 @@
-<img width="662" alt="Infografik" src="https://user-images.githubusercontent.com/84908019/127643618-f19b1810-71dd-4a68-877f-e13157f00a0d.PNG">
+<img width="662" alt="Infografik" src="https://user-images.githubusercontent.com/84908019/135611066-783f2791-17f8-4639-8754-3011ea0b1ad3.png">
 
 
 # What is the USU Bot Universe?
