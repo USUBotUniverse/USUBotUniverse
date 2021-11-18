@@ -17,7 +17,7 @@ For further information visit our [wiki](https://github.com/USUBotUniverse/USUBo
 # Community and Support
 There are a number of places to ask questions and get involved within the USU Bot Universe community. Our community thrives the more you get involved and we encourage you to ask questions, provide answers, and make contributions.
 
-* [USU Bot Universe Forum](https://www.reddit.com/r/USUBotUniverse/) - View previously answered questions about the USUBotUniverse or post a new questions.
+* [USU Bot Universe Discussions](https://github.com/USUBotUniverse/USUBotUniverse/discussions) - View previously answered questions about the USUBotUniverse or post a new questions.
 * [Issues](https://github.com/USUBotUniverse/USUBotUniverse/issues) - Any bugs, ambiguity, or problems with the specification you encounter should be reported here. You can also create issues which are feature requests, however the most likely way to get a feature into the spec is by creating a PR yourself.
 * [Getting started](https://github.com/USUBotUniverse/USUBotUniverse/wiki/Tutorials-and-examples) - View tutorials with examples on how to use the USU Bot Universe communication-protocol.
 
