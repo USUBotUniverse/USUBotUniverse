@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "language", "conversation", "interaction", "metadata", "responsible", "available" })
+@JsonPropertyOrder({ "language", "conversation", "interaction", "metadata", "responsible", "available", "availableForQuestion"})
 public class Payload
 {
 	@JsonProperty("language")
@@ -39,6 +39,11 @@ public class Payload
 	@Valid
 	@JsonIgnore
 	private Available available;
+
+	@JsonProperty("availableForQuestion")
+	@Valid
+	@JsonIgnore
+	private AvailableForQuestion availableForQuestion;
 
 	@JsonProperty("metadata")
 	private Map<String, Object> metadata = new HashMap<>();
@@ -151,6 +156,24 @@ public class Payload
 	public Payload withAvaiable(final Available available)
 	{
 		this.available = available;
+		return this;
+	}
+
+	@JsonProperty("availableForQuestion")
+	public AvailableForQuestion getAvailableForQuestion()
+	{
+		return availableForQuestion;
+	}
+
+	@JsonProperty("availableForQuestion")
+	public void setAvailableForQuestion(final AvailableForQuestion availableForQuestion)
+	{
+		this.availableForQuestion = availableForQuestion;
+	}
+
+	public Payload withAvailableForQuestion(final AvailableForQuestion availableForQuestion)
+	{
+		this.availableForQuestion = availableForQuestion;
 		return this;
 	}
 

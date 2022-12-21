@@ -336,7 +336,7 @@ public class MetabotProtocolClient implements Closeable
 		}
 	}
 
-	public ResponseRootObject askIsAvaiable() throws MetabotProtocolException
+	public ResponseRootObject askIsAvaiableAtLeadStart() throws MetabotProtocolException
 	{
 		try
 		{
@@ -383,6 +383,55 @@ public class MetabotProtocolClient implements Closeable
 			throw new MetabotProtocolException("Could not establish connection " + m_botUri + "!", ex);
 		}
 	}
+
+	public ResponseRootObject askAvailableForQuestion() throws MetabotProtocolException
+	{
+		try
+		{
+			Session l_session = new Session();
+			l_session.withSessionId(m_currentSessionId);
+			l_session.withKvsSessionId(m_keyValueStoreSessionId);
+			l_session.withAsTeamMember(m_asTeamMember);
+
+			Attributes a = new Attributes();
+			a.withAdditionalProperty("debugMode", m_debugMode);
+
+			l_session.withAttributes(a);
+
+			l_session.withSmallTalk(m_smallTalk);
+			l_session.withExternalKey(m_externalKey);
+			l_session.setNew(Boolean.FALSE);
+			l_session.withApplication(new Application().withApplicationId(m_applicationId));
+			l_session.withUser(new User().withUserId(m_userId));
+
+			Request l_request = new Request().withType(RequestType.COMMAND)
+					.withRequestId(Long.toString(m_counter.getAndIncrement()))
+					.withLocale(m_locale)
+					.withTimestamp(OffsetDateTime.now())
+					.withSmallTalk(m_smallTalk)
+					.withExternalKey(m_externalKey)
+					.withPayload(new Payload().withType("availableForQuestion"));
+
+			RequestRootObject l_jsonRoot = new RequestRootObject().withSession(l_session).withRequest(l_request);
+
+			HttpResponse<String> l_response = sendRequest(l_jsonRoot);
+
+			if (l_response.statusCode() == 200)
+			{
+				String l_jsonBody = l_response.body();
+				return readResponse(l_jsonBody);
+			}
+			else
+			{
+				throw new MetabotProtocolException("Could not execute request to " + m_botUri + "! Got StatusCode=" + l_response.statusCode());
+			}
+		}
+		catch (IllegalArgumentException | IOException | InterruptedException ex)
+		{
+			throw new MetabotProtocolException("Could not establish connection " + m_botUri + "!", ex);
+		}
+	}
+
 
 	public ResponseRootObject askWhoFeelsResponsible(final String p_input) throws MetabotProtocolException
 	{

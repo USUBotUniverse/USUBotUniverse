@@ -14,12 +14,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "multiSelectAllowed", "inputType", "inputOptions", "inputFieldActive", "inputHint" })
+@JsonPropertyOrder({ "multiSelectAllowed", "inputType", "inputOptions", "inputFieldActive", "allowOptionFiltering", "inputHint", "dialog", "yesorno" })
 public class Interaction
 {
 
 	@JsonProperty("multiSelectAllowed")
 	private Boolean multiSelectAllowed;
+
+	@JsonProperty("allowOptionFiltering")
+	private Boolean allowOptionFiltering;
 
 	@JsonProperty("inputType")
 	private String inputType;
@@ -46,6 +49,12 @@ public class Interaction
 	@JsonProperty("showResultCount")
 	private Integer showResultCount;
 
+	@JsonProperty("dialog")
+	private boolean isInGuidedDialog;
+
+	@JsonProperty("yesorno")
+	private boolean isYesOrNoQuestion;
+
 	@JsonIgnore
 	@Valid
 	private Map<String, Object> additionalProperties = new HashMap<>();
@@ -65,6 +74,23 @@ public class Interaction
 	public Interaction withMultiSelectAllowed(final Boolean multiSelectAllowed)
 	{
 		this.multiSelectAllowed = multiSelectAllowed;
+		return this;
+	}
+
+	@JsonProperty("allowOptionFiltering")
+	public Boolean getAllowOptionFiltering()
+	{
+		return allowOptionFiltering;
+	}
+
+	@JsonProperty("allowOptionFiltering")
+	public void setAllowOptionFiltering(final Boolean allowOptionFiltering)
+	{
+		this.allowOptionFiltering = allowOptionFiltering;
+	}
+	public Interaction withAllowOptionFiltering(final Boolean allowOptionFiltering)
+	{
+		this.allowOptionFiltering = allowOptionFiltering;
 		return this;
 	}
 
@@ -210,6 +236,27 @@ public class Interaction
 	{
 		this.showResultCount = showResultCount;
 		return this;
+	}
+	@JsonProperty("dialog")
+	public boolean isInGuidedDialog()
+	{
+		return isInGuidedDialog;
+	}
+
+	public void setInGuidedDialog(boolean inGuidedDialog)
+	{
+		this.isInGuidedDialog = inGuidedDialog;
+	}
+
+	@JsonProperty("yesorno")
+	public boolean isYesOrNoQuestion()
+	{
+		return isYesOrNoQuestion;
+	}
+
+	public void setYesOrNoQuestion(boolean isYesOrNoQuestion)
+	{
+		this.isYesOrNoQuestion = isYesOrNoQuestion;
 	}
 
 	@JsonAnyGetter
