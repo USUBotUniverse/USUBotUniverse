@@ -143,6 +143,9 @@ Possible actions:
 | startSession | Starts a new session. If a session has been specified via the 'sessionId', it will be terminated, if present. | none     |
 | resetSession | Ends the current session and restarts it. The session itself is defined by the 'sessionId' in the session object. | none     |
 | endSession   | Ends the current session. The session itself is defined by the 'sessionId' in the session object. | none       |
+| available    | Checks whether the bot is available for a certain protocol session. Return 'true' or 'false'.  | none       |
+| availableForQuestion    | Checks whether the bot is available for answering certain types of questions. Return 'true' or 'false'. | none 
+
 
 ###### 'payload' of type 'message'
 
