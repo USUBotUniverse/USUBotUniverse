@@ -145,6 +145,8 @@ Possible actions:
 | endSession   | Ends the current session. The session itself is defined by the 'sessionId' in the session object. | none       |
 | available    | Checks whether the bot is available for a certain protocol session. Return 'true' or 'false'.  | none       |
 | availableForQuestion    | Checks whether the bot is available for answering certain types of questions. Return 'true' or 'false'. | none 
+| responsible | Checks whether the bot finds matching intents to the user's questions. Return 'true' or 'false' | "text" (user's input)
+| topic | Asks topics bots can offer based on user input | 'input' 
 
 
 ###### 'payload' of type 'message'
@@ -158,6 +160,37 @@ Possible actions:
 | Attribute | Description                                                   | Type    | Optional |
 | -------- | ------------------------------------------------------------ | ------ | -------- |
 | text     | The actual textual input to be sent to the bot. | String | yes       |
+
+###### 'payload' of type 'available'
+
+```json
+"payload":{
+    "type":"available"
+}
+```
+
+###### 'payload' of type 'availableForQuestion'
+
+```json
+"payload":{
+    "type":"availableForQuestion"
+}
+```
+
+###### 'payload' of type 'responsible'
+
+```json
+"payload":{
+    "type":"responsible",
+    "text": "test"
+}
+```
+
+| Attribute | Description                                                   | Type    | Optional |
+| -------- | ------------------------------------------------------------ | ------ | -------- |
+| type     | The type of the request | String | yes       |
+
+
 
 ##### Example of a request query:
 
