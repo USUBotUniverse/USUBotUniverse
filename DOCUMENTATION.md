@@ -145,7 +145,7 @@ Possible actions:
 | endSession   | Ends the current session. The session itself is defined by the 'sessionId' in the session object. | none       |
 | available    | Checks whether the bot is available for a certain protocol session. Return 'true' or 'false'.  | none       |
 | availableForQuestion    | Checks whether the bot is available for answering certain types of questions. Return 'true' or 'false'. | none 
-| responsible | Checks whether the bot finds matching intents to the user's questions. Return 'true' or 'false' | "text" (user's input)
+| responsible | Checks whether the bot finds matching intents to the user's questions. Return 'true' or 'false' and the bot's topic | "text" (user's input)
 | topic | Asks topics bots can offer based on user input | 'input' 
 
 
@@ -188,7 +188,7 @@ Possible actions:
 
 | Attribute | Description                                                   | Type    | Optional |
 | -------- | ------------------------------------------------------------ | ------ | -------- |
-| type     | The type of the request | String | yes       |
+| test     | User input | String | no       |
 
 
 
