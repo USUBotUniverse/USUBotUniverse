@@ -145,8 +145,7 @@ Possible actions:
 | endSession   | Ends the current session. The session itself is defined by the 'sessionId' in the session object. | none       |
 | available    | Checks whether the bot is available for a certain protocol session. Return 'true' or 'false'.  | none       |
 | availableForQuestion    | Checks whether the bot is available for answering certain types of questions. Return 'true' or 'false'. | none 
-| responsible | Checks whether the bot finds matching intents to the user's questions. Return 'true' or 'false' and the bot's topic | "text" (user's input)
-| topic | Asks topics bots can offer based on user input | 'input' 
+| responsible | Checks whether the bot finds matching intents to the user's questions. Return 'true' or 'false' and the bot's topics | "text" (user's input)
 
 
 ###### 'payload' of type 'message'
@@ -707,3 +706,168 @@ curl "http://knowledgefirst-poc.usu.de/kbot-api/interact/kcpreview/widget:Defaul
 curl "http://localhost:9190/kbot-api/interact/kcpreview/widget:Default" -H "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0" -H "Accept: */*" -H "Accept-Language: de,en-US;q=0.7,en;q=0.3" --compressed -H "Content-Type: application/json; charset=UTF-8" -H "Connection: keep-alive" --data "{\"session\":{\"application\":{\"applicationId\":\"Knowledge Bot Widget\"},\"user\":{\"userId\":\"Kbot-Default-User\"},\"attributes\":{},\"new\":false,\"sessionId\": \"633f9264:16708c1a9b8:-7ffb\"},\"request\":{\"type\":\"command\",\"requestId\":\"1\",\"locale\":\"de\",\"timestamp\":\"2018-11-09T16:06:53.001Z\",\"payload\":{\"type\":\"endSession\"}}}"
 ```
 
+#### Asking if a bot is responsible for answering a question
+
+<u>JSON Request Structure</u>
+
+```json
+{
+  "session": {
+    "application": {
+      "applicationId": "KBot"
+    },
+    "user": {
+      "userId": "127921f7-c89d-4d15-a5b8-5307836e6af6"
+    },
+    "asTeamMember": true,
+    "smalltalk": false,
+    "new": false
+  },
+  "request": {
+    "type": "message",
+    "requestId": "1",
+    "locale": "en",
+    "timestamp": "2023-01-16T09:52:37.386+00:00",
+    "payload": {
+      "type": "responsible",
+      "text": "test"
+    },
+  }
+}
+```
+
+<u>JSON Response Structure</u>
+
+```json
+{
+  "sessionAttributes": {
+    "sessionId": "633f9264:16708c1a9b8:-7ffb"
+  },
+  "response": {
+    "shouldEndSession": false,
+    "type": "reply",
+    "payload": [
+      {
+        "responsible": {
+          "responsible": true,
+          "topics": [
+            {
+              "name": "weather",
+              "confidence": "1.0"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+| Attribute | Description                                                   | Type    | 
+| -------- | ------------------------------------------------------------ | ------ | 
+| responsible     | Indicates whether the bot finds any answers to user's input | Boolean | 
+| topics     | Array of topics the bot can offer | Array | 
+| name     | Name of the topic | String | 
+| confidence     | Extend to which the answer matches user's input | Double | 
+
+#### Asking if a bot is available at all at session start
+
+<u>JSON Request Structure</u>
+
+```json
+{
+  "session": {
+    "application": {
+      "applicationId": "KBot"
+    },
+    "user": {
+      "userId": "127921f7-c89d-4d15-a5b8-5307836e6af6"
+    },
+    "asTeamMember": true,
+    "smalltalk": false,
+    "new": false
+  },
+  "request": {
+    "type": "message",
+    "requestId": "1",
+    "locale": "en",
+    "timestamp": "2023-01-16T09:52:37.386+00:00",
+    "payload": {
+      "type": "avaiable",
+    },
+  }
+}
+```
+
+<u>JSON Response Structure</u>
+
+```json
+{
+  "sessionAttributes": {
+    "sessionId": "633f9264:16708c1a9b8:-7ffb"
+  },
+  "response": {
+    "shouldEndSession": false,
+    "type": "reply",
+    "payload": [
+      {
+        "available": {
+          "available": false
+        }
+      }
+    ]
+  }
+}
+```
+
+#### Asking if a bot is available for answering a certain domain of questions
+
+
+<u>JSON Request Structure</u>
+
+```json
+{
+  "session": {
+    "application": {
+      "applicationId": "KBot"
+    },
+    "user": {
+      "userId": "127921f7-c89d-4d15-a5b8-5307836e6af6"
+    },
+    "asTeamMember": true,
+    "smalltalk": false,
+    "new": false
+  },
+  "request": {
+    "type": "message",
+    "requestId": "1",
+    "locale": "en",
+    "timestamp": "2023-01-16T09:52:37.386+00:00",
+    "payload": {
+      "type": "availableForQuestion",
+      "domain": "Berlin"
+    },
+  }
+}
+```
+
+<u>JSON Response Structure</u>
+
+```json
+{
+  "sessionAttributes": {
+    "sessionId": "633f9264:16708c1a9b8:-7ffb"
+  },
+  "response": {
+    "shouldEndSession": false,
+    "type": "reply",
+    "payload": [
+      {
+        "available": {
+          "available": true
+        }
+      }
+    ]
+  }
+}
+```
