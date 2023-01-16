@@ -845,7 +845,7 @@ curl "http://localhost:9190/kbot-api/interact/kcpreview/widget:Default" -H "User
     "timestamp": "2023-01-16T09:52:37.386+00:00",
     "payload": {
       "type": "availableForQuestion",
-      "domain": "Berlin"
+      "text": "Berlin"
     },
   }
 }
